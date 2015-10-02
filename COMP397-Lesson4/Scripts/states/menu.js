@@ -24,10 +24,9 @@ var states;
             stage.addChild(scene); // this container will contain all our objects, and then implemented into the scene (stage) - preparation for the State Machine
         };
         Menu.prototype.update = function () {
-            //PRIVATE METHODS
         };
         Menu.prototype._ClickStartButton = function (event) {
-            this._helloLabel.text = "Clicked"; // change text for helloLabel - won't be the same position in the canvas as before in Main function - "Game Start"
+            changeState(config.PLAY_STATE); //calles the change state upon clicking the button - to change value of in the changestate parameter to the game state constant
         };
         return Menu;
     })(objects.Scene);

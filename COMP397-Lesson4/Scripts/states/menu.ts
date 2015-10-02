@@ -24,12 +24,12 @@ module states {
             stage.addChild(scene); // this container will contain all our objects, and then implemented into the scene (stage) - preparation for the State Machine
         }
         public update(): void { //update new additive objects if any come to being - such as calling a private method
-            //PRIVATE METHODS
             
         }
         private _ClickStartButton(event: createjs.MouseEvent): void { // event of type (mouse-event) - clicking - the start button
-            this._helloLabel.text = "Clicked"; // change text for helloLabel - won't be the same position in the canvas as before in Main function - "Game Start"
+            changeState(config.PLAY_STATE); //calles the change state upon clicking the button - to change value of in the changestate parameter to the game state constant
         }
+        
     }
  
 }

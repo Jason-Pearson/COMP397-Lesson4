@@ -9,7 +9,9 @@
 /// <reference path="../objects/scene.ts" />
 /// <reference path="../objects/label.ts" />
 /// <reference path="../objects/button.ts" />
+/// <reference path="../states/over.ts" />
 /// <reference path="../states/menu.ts" />
+/// <reference path="../states/game.ts" />
 // GLOBAL GAME FRAMEWORK VARIABLES
 var canvas;
 var stage;
@@ -19,6 +21,8 @@ var scene; // a box that other objects can be added to and used via addChild and
 var currentState; // variable holding the scene class from objects module
 //GAME OBJECTS
 var menu; //variabe of type menu class in menu script from states module
+var game;
+var over;
 //deleted global variables to be instantiated by the menu class into the scene class to be shown on the canvas
 //Our void Start () method per se - upon intial frame, execute code
 function init() {
@@ -29,11 +33,12 @@ function init() {
     createjs.Ticker.on("tick", gameLoop); // update gameLoop every frame
     setupStats(); //sets up our stat counting before calling Main function - to start counting in Main function
     state = config.MENU_STATE; // on first frame - we have the state number equal to the menu state first - 
-    changeState(); // - which calls this function on first frame to have menu state show up first
+    changeState(state); // - which calls this function on first frame to have menu state show up first - //now has state (number) parameter in order to ask for the state number via state the classes to pass into the function and change the state
 }
 // Main Game Loop - Our void Update() per se - checks and executes code every frame/per frame
 function gameLoop(event) {
     stats.begin(); //start counting per frame -
+    currentState.update(); //calls the current state's update method
     stage.update(); // redraw/refresh stage every frame
     stats.end(); // - stop counting per frame
 }
@@ -48,21 +53,29 @@ function setupStats() {
 }
 //(1) without main function needed - need to show the current state function is the main function for the stage -
 //State Machine
-function changeState() {
+function changeState(state) {
     //Launch various scenes
     switch (state) {
         case config.MENU_STATE:
             //if state number = 0, show menu scene
+            stage.removeAllChildren();
             menu = new states.Menu(); //intsantiate menu object of type menu class
             currentState = menu; //stateFunction calls start method from menu object - which is a reference to the menu class that calls Start method
             break;
         case config.PLAY_STATE:
-            //if state number = 1, show play scne
+            //if state number = 1, show play scene
+            stage.removeAllChildren();
+            game = new states.Game(); //intsantiate menu object of type menu class
+            currentState = game; //stateFunction calls start method from menu object - which is a reference to the menu class that calls Start method
             break;
         case config.OVER_STATE:
             //if state number = 2, shot game over;
+            stage.removeAllChildren();
+            over = new states.Over(); //intsantiate menu object of type menu class
+            currentState = over; //stateFunction calls start method from menu object - which is a reference to the menu class that calls Start method
             break;
     }
     currentState.start(); //call the start method of the current state that is of class (scene)
+    console.log(currentState.numChildren); //asking for the index of the num of children in the scene - if there is more than 1 you are screwed...meaning: keeps packing objects into the scene from previous states until memory expands more and crashes - check console in inspect element in Chrome
 }
 //# sourceMappingURL=game.js.map
