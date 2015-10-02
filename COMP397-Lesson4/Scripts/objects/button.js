@@ -9,7 +9,7 @@ var objects;
         __extends(Button, _super);
         //CONSTRUCTOR
         function Button(pathString, x, y) {
-            _super.call(this, "../../Assets/images/State_Machine_Buttons/" + pathString + ".png"); // super class needs path to buttons through the folders via string concatenation
+            _super.call(this, assets.getResult(pathString)); // super class needs path to buttons through the folders via string concatenation -- now the pathString comes from the manifest array variable with the assets/image to preload into this class - then create buttons via this class
             //for the position of the button in the canvas initialized in the contructor to assign to these private variables when a new Button object (variable of type Button - to be instantiated as a Button object) is made in game.ts -
             //(3) after x and y size registered - allowing to move the button by x and y positioning within the canvas - relative (or absolute?) to the canvas size (640 x 480) 
             this.x = x;

@@ -43,7 +43,7 @@ declare module createjs {
 
 
     export class Bitmap extends DisplayObject {
-        constructor(imageOrUrl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | string);
+        constructor(imageOrUrl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | string | any);//added (or) any, to pick up an (any) variable like our type preload variable in button class to preload the button in the super class constructor to make the butmap image here
 
         // properties
         image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;

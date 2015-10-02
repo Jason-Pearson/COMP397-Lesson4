@@ -8,7 +8,7 @@
     <link href="Content/reset.css" rel="stylesheet" /> <!--the whole html file is formated by reset.css(?)-->
     <link href="Content/game.css" rel="stylesheet" />
 </head>
-<body onload="init();">
+<body onload="preload();"> <!--instead prelaod is call in body for the assets to preload, and in preload function the init() method is called-->
     <!--on intial load of the body - call init() function from game.ts - establishing everything in the canvas from the first frame ~ -->
     <div class="game">
         <!-- ~ in a div border relative to the size of the canvas made within ~ in which the div is also formated by game.css-->

@@ -13,6 +13,7 @@
 /// <reference path="../states/menu.ts" />
 /// <reference path="../states/game.ts" />
 // GLOBAL GAME FRAMEWORK VARIABLES
+var assets; //have it be global variable - this is where your createJS assets will be held
 var canvas;
 var stage;
 var stats; //make a function to set up game stats - via this variable that is of class Stats (imported from Stats.d.js in Scripts/typings folder) 
@@ -23,7 +24,17 @@ var currentState; // variable holding the scene class from objects module
 var menu; //variabe of type menu class in menu script from states module
 var game;
 var over;
+var manifest = [{ id: "BackButton", src: "Assets/images/State_Machine_Buttons/backButton.png" },
+    { id: "NextButton", src: "Assets/images/State_Machine_Buttons/nextButton.png" },
+    { id: "StartButton", src: "Assets/images/State_Machine_Buttons/startButton.png" }];
 //deleted global variables to be instantiated by the menu class into the scene class to be shown on the canvas
+//to preloading objects/assets on createJS (images for buttons, scene (via Container of type creatJS), etc)
+function preload() {
+    assets = new createjs.LoadQueue();
+    assets.installPlugin(createjs.Sound);
+    assets.on("complete", init, this); //on(complete) event listener - call init when everything is loaded - need a function to send the result for the event listener
+    assets.loadManifest(manifest);
+}
 //Our void Start () method per se - upon intial frame, execute code
 function init() {
     canvas = document.getElementById("canvas"); // reference to canvas element
