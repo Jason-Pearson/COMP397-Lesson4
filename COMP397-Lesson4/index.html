@@ -8,23 +8,24 @@
     <link href="Content/reset.css" rel="stylesheet" /> <!--the whole html file is formated by reset.css(?)-->
     <link href="Content/game.css" rel="stylesheet" />
 </head>
-<body onload="init();"> <!--on intial load of the body - call init() function from game.ts - establishing everything in the canvas from the first frame ~ -->
-    <div class="game"> <!-- ~ in a div border relative to the size of the canvas made within ~ in which the div is also formated by game.css-->
+<body onload="init();">
+    <!--on intial load of the body - call init() function from game.ts - establishing everything in the canvas from the first frame ~ -->
+    <div class="game">
+        <!-- ~ in a div border relative to the size of the canvas made within ~ in which the div is also formated by game.css-->
         <canvas id="canvas" width="640" height="480"></canvas> <!-- the canvas also has an id to have the stage variable in game.ts be a reference of the canvas via getElementById and assigning it -->
     </div>
-
     <!-- JavaScript Libraries-->
-    <script src="Scripts/config/config.js"></script> <!--first script library to load in order to pre-load and provide constants for the states in the StateMachine-->
     <script src="Scripts/lib/jquery-2.1.4.min.js"></script>
     <script src="Scripts/lib/Stats.js"></script>
     <script src="Scripts/lib/easeljs-0.8.1.min.js"></script>
     <script src="Scripts/lib/tweenjs-0.6.1.min.js"></script>
     <script src="Scripts/lib/soundjs-0.6.1.min.js"></script>
     <script src="Scripts/lib/preloadjs-0.6.1.min.js"></script>
-
     <!-- Game Scripts -->
+    <script src="Scripts/config/config.js"></script> <!--first script library to load in order to pre-load and provide constants for the states in the StateMachine-->
     <script src="Scripts/objects/label.js"></script>
     <script src="Scripts/objects/button.js"></script> <!--adding the script for button class via button.ts to index.html - where all the classes and script functionalities from the .ts files are binded into the html code-->
+    <script src="Scripts/objects/scene.js"></script> <!--adding the script for -->
     <script src="Scripts/states/menu.js"></script> <!--added menu state script from states module, making it availiable for/before the main game.ts code-->
     <script src="Scripts/core/game.js"></script>
 </body>

@@ -6,9 +6,10 @@
 /// <reference path="../typings/tweenjs/tweenjs.d.ts" />
 /// <reference path="../typings/soundjs/soundjs.d.ts" />
 /// <reference path="../typings/preloadjs/preloadjs.d.ts" />
-
+/// <reference path="../objects/scene.ts" />
 /// <reference path="../objects/label.ts" />
 /// <reference path="../objects/button.ts" />
+
 /// <reference path="../states/menu.ts" />
 
 
@@ -19,11 +20,11 @@ var stage: createjs.Stage;
 var stats: Stats; //make a function to set up game stats - via this variable that is of class Stats (imported from Stats.d.js in Scripts/typings folder) 
 var state: number;
 var scene: createjs.Container; // a box that other objects can be added to and used via addChild and similar functions - like Stage
-var stateFunction: any; // a variable of (any) type to hold and call the current state function from the functions of menu, play, and over.ts scripts from the states module (folder)
+var currentState: objects.Scene; // variable holding the scene class from objects module
+//GAME OBJECTS
+var menu: states.Menu; //variabe of type menu class in menu script from states module
 
-// Game Variables
-var helloLabel: objects.Label;
-var startButton: objects.Button; // this button variable is of type Button class - where it will hold an image as a bitmap, and have position and mouse-event functionality
+//deleted global variables to be instantiated by the menu class into the scene class to be shown on the canvas
 
 //Our void Start () method per se - upon intial frame, execute code
 function init():void {
@@ -53,10 +54,7 @@ function setupStats():void {
     stats.domElement.style.top = "0px";// - go 0px from very top of the screen- domElement translates to DivElement in JS
     document.body.appendChild(stats.domElement); // translates to adding Stats to index.html in JS
 }
-// Callback function / Event Handler for Start Button Click
-function clickStartButton(event: createjs.MouseEvent): void { // event of type (mouse-event) - clicking - the start button
-    helloLabel.text = "Clicked"; // change text for helloLabel - won't be the same position in the canvas as before in Main function - "Game Start"
-}
+
 //(1) without main function needed - need to show the current state function is the main function for the stage -
 //State Machine
 function changeState(): void {
@@ -64,7 +62,8 @@ function changeState(): void {
     switch (state) { // for example, based on (assignemnt 1) choices leading you to a state number and changing the state (screen) to progress
         case config.MENU_STATE:
             //if state number = 0, show menu scene
-            stateFunction = states.menu; // variable points to and calls the function of menu.ts from states module when the state (number) is equal to 0 (MENU_STATE number variable from config.ts/config module)
+            menu = new states.Menu(); //intsantiate menu object of type menu class
+            currentState = menu; //stateFunction calls start method from menu object - which is a reference to the menu class that calls Start method
             break;
         case config.PLAY_STATE:
             //if state number = 1, show play scne
@@ -73,5 +72,5 @@ function changeState(): void {
             //if state number = 2, shot game over;
             break;
     }
-    stateFunction();
+    currentState.start(); //call the start method of the current state that is of class (scene)
 }
